@@ -286,8 +286,6 @@ def predict_structure(
   elif models_to_relax == "NONE":
     to_relax = []
 
-  print(amber_relaxer)
-
   for model_name in to_relax:
     t_0 = time.time()
     relaxed_pdb_str, _, violations = amber_relaxer.process(prot=unrelaxed_proteins[model_name])
