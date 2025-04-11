@@ -178,6 +178,19 @@ def _jnp_to_np(output: Dict[str, Any]) -> Dict[str, Any]:
   return output
 
 
+def _save_confidence_json_file(
+    plddt: np.ndarray, output_dir: str, model_name: str
+) -> None:
+  confidence_json = confidence.confidence_json(plddt)
+
+  # Save the confidence json.
+  confidence_json_output_path = os.path.join(
+      output_dir, f'confidence_{model_name}.json'
+  )
+  with open(confidence_json_output_path, 'w') as f:
+    f.write(confidence_json)
+
+
 def predict_structure(
     fasta_path: str,
     fasta_name: str,
@@ -247,6 +260,7 @@ def predict_structure(
           model_name, fasta_name, t_diff)
 
     plddt = prediction_result['plddt']
+    _save_confidence_json_file(plddt, output_dir, model_name)
     ranking_confidences[model_name] = prediction_result['ranking_confidence']
 
     # Remove jax dependency from results.
