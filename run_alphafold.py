@@ -27,6 +27,7 @@ from typing import Any, Dict, Mapping, Union
 from absl import app
 from absl import flags
 from absl import logging
+from alphafold.common import confidence
 from alphafold.common import protein
 from alphafold.common import residue_constants
 from alphafold.data import pipeline
